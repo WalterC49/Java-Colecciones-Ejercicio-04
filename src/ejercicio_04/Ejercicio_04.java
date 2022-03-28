@@ -20,6 +20,7 @@ en pantalla.
 package ejercicio_04;
 
 import Entidades.Pelicula;
+import Servicios.PeliculaServicio;
 import java.util.Scanner;
 
 /**
@@ -34,14 +35,26 @@ public class Ejercicio_04 {
     public static void main(String[] args) {
         System.out.println("Este programa guarda peliculas y sus datos en una lista y luego muestra la lista.");
         Pelicula peli = new Pelicula();
-        Scanner leer = new Scanner(System.in);
+        PeliculaServicio peliS = new PeliculaServicio();
+        Scanner leer = new Scanner(System.in).useDelimiter("\n");
         String respuesta;
         boolean continuar=false;
+        String titulo;
+        String director;
+        Double duracion;
         
         do{
+            System.out.print("Ingrese el titulo de una pelicula: ");
+            titulo=leer.nextLine();
+            System.out.print("Ingrese a su director: ");
+            director=leer.nextLine();
+            System.out.print("Ingrese su duración en horas: ");
+            duracion=leer.nextDouble();
+            
+            peliS.cargarPeliculas(new Pelicula(titulo, director, duracion));
             
             do{
-                System.out.print("\n¿Desea agregar otro alumno?(s/n) ");
+                System.out.print("\n¿Desea agregar otra pelicula?(s/n) ");
                 respuesta = leer.next().toLowerCase();
                 switch(respuesta){
                     case "s":
@@ -57,9 +70,13 @@ public class Ejercicio_04 {
             leer.nextLine();
         }while(continuar==true);
         
-        
-        
-        
+        System.out.println("-------------------------------------------------");
+        peliS.MostrarPeliculas();
+        peliS.MostrarPeliculasMax1HR();
+        peliS.MostrarPeliculasPorDuracionAsc();
+        peliS.MostrarPeliculasPorDuracionDesc();
+        peliS.MostrarPeliculasPorTituloAsc();
+        peliS.MostrarPeliculasPorDirectorAsc();
     }
     
 }
